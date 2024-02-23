@@ -4,6 +4,8 @@
 using namespace std;
 const int NUM_OF_ROWS = 3;
 const int NUM_OF_COLS = 3;
+int row_num, col_num;
+int choice;
 
 char board[NUM_OF_ROWS][NUM_OF_COLS]={{'1','2','3'},{'4','5','6'},{'7','8','9'}};
 char turn='X';
@@ -24,63 +26,83 @@ int main()
         gameOver();
     }
     if(turn == 'X' && draw == false){
-        cout<<"/nCongratulations!Player with 'X' has won the game";
+        cout<<"\nCongratulations! Player with 'X' has won the game";
     }
     else if(turn == 'O' && draw == false){
-        cout<<"/nCongratulations!Player with 'O' has won the game";
+        cout<<"\nCongratulations! Player with 'O' has won the game";
     }
     else
-    cout<<"/nGAME DRAW!!!/n";
+    cout<<"\nThe game is a draw!!!";
 
     return 0;
 }
 
 void display_board(){
-    for(int i=0; i<NUM_OF_ROWS; i++){
-        for(int j =0; j<NUM_OF_COLS; j++)
-            cout<<board[i][j]<<" ";
-        cout<<endl;
-    }
+    cout<<"\n__"<<"__"<<"__"<<"__"<<"__"<<"__"<<"_"<<endl;
+    cout<<"| "<<board[0][0]<<" | "<<board[0][1]<<" | "<<board[0][2]<<" |"<<endl;
+    cout<<"__"<<"__"<<"__"<<"__"<<"__"<<"__"<<"_"<<endl;
+    cout<<"| "<<board[1][0]<<" | "<<board[1][1]<<" | "<<board[1][2]<<" |"<<endl;
+    cout<<"__"<<"__"<<"__"<<"__"<<"__"<<"__"<<"_"<<endl;
+    cout<<"| "<<board[2][0]<<" | "<<board[2][1]<<" | "<<board[2][2]<<" |"<<endl;
+    cout<<"__"<<"__"<<"__"<<"__"<<"__"<<"__"<<"_\n"<<endl;
 
 }
 
 void player_turn(){
-    int num1, num2;
 
         if(turn =='X')
             cout<<"Player-1's [X] turn"<<endl;
         else if(turn == 'O')
             cout<<"Player-2's [O] turn"<<endl;
 
-        cout<<"Enter your row and column number (can be 1,2 or 3): "<<endl;
-        cin>>num1>>num2;
+        cout<<"Enter where to insert your turn: "<<endl;
+        cin>>choice;
 
-        if(num1>3 || num2> 3 || num1 <0 || num2<0){
-        cout<<"Invalid numbers, row and column number can only be 1,2 or 3!!..Enter again: "<<endl;
-        cin>>num1>>num2;
-       }
-        if(0 < num1 <=3 && 0 < num2 <=3){
-            if(turn=='X' && board[num1][num2] != 'X' && board[num1][num2]!='O'){
-                board[num1-1][num2-1]='X';
-                turn='O';
-            }
-            else if(turn=='O' && board[num1][num2] != 'X' && board[num1][num2]!='O'){
-                board[num1-1][num2-1]='O';
-                turn='X';
-            }
-            else{
-                cout<<"Cell already filled! Choose another cell"<<endl;
-                player_turn();
-            }
+       switch(choice){
+   case 1:
+    row_num =0; col_num=0;
+    break;
+   case 2:
+    row_num=0; col_num=1;
+    break;
+   case 3:
+    row_num=0; col_num=2;
+    break;
+   case 4:
+    row_num=1; col_num=0;
+    break;
+   case 5:
+    row_num=1; col_num=1;
+    break;
+   case 6:
+    row_num=1; col_num=2;
+    break;
+   case 7:
+    row_num=2; col_num=0;
+    break;
+   case 8:
+    row_num=2; col_num=1;
+    break;
+   case 9:
+    row_num=2; col_num=2;
+    break;
+   default:
+    cout<<"Invalid number!!"<<endl;
+    }
 
-       }
-       else{
-        cout<<"You have forfeited your turn"<<endl;
-        if(turn=='X')
-            turn=='O';
-        else if(turn=='O')
-            turn='X';
-       }
+    if(turn == 'X' && board[row_num][col_num]!='X' && board[row_num][col_num]!='O' ){
+        board[row_num][col_num] = 'X';
+        turn = 'O';
+    }
+
+    else if(turn=='O' && board[row_num][col_num]!='X' && board[row_num][col_num]!='O' ){
+        board[row_num][col_num] ='O';
+        turn='X';
+    }else {
+        //if input position already filled
+        cout<<"Box already filled!!! Please choose another cell: ";
+        player_turn();
+    }
 
 }
 

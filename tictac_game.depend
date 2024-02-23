@@ -1,4 +1,5 @@
 # depslib dependency file v1.0
-1708629204 source:e:\projects\c++\tictac_game\main.cpp
+1708723535 source:e:\projects\c++\tictac_game\main.cpp
 	<iostream>
+	<cstdlib>
 
